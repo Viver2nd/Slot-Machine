@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot-Machine</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <main>
+        <h1 id="balance">Balance: $0</h1>
+        <section id="slots">
+            <img id="slot1"></img>
+            <img id="slot2"></img>
+            <img id="slot3"></img>
+        </section>
+        <section id="buttons">
+            <button id="spinButton"></button>
+        </section>
+        <section id="inputs">
+            <input id="wagerInput" type="text" placeholder="Enter wager amount...">
+            <button id="x2">x2</button>
+            <button id="half">1/2</button>
+            <button id="withdraw">Withdraw</button>
+        </section>
+        <audio id="moneySound" src="audio/money.mp3"></audio>
+        <h2 id="msg"></h2>
+    </main>
+</body>
+</html>
