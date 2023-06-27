@@ -7,7 +7,7 @@
 // Orange = 3
 
 // Game info
-console.log(`Welcome to Kai's Slot-Machine!\n\nTo play, enter your wager amount and press the golden button.\n\nKEY:\n\n0 slots = wager x0\n2 slots = wager x1.5\n3 slots = wager x2`)
+console.log(`Welcome to Kai's Slot-Machine!\n\nTo play, enter your wager amount and press the golden button.\n\nKEY:\n\nZero the same = wager x0.0\nTwo the same = wager x1.5\nThree 🍎 = wager x2.5\nThree 🍌 = wager x0.0\nThree 🍊 = wager x2.0`)
   
 // ---------- VARIABLE DECLARATION
 let slot1Val = '';
@@ -80,42 +80,72 @@ function handleSpin() {
         if (slot1Val !== slot2Val && slot1Val !== slot3Val && slot2Val !== slot3Val) {
             msgEl.innerText=''
             winnings = wagerAmount * 0;
-            balance = balance + winnings;
+            balance = balance - wagerAmount;
+            setTimeout(function() {
             balanceEl.innerText = `Balance: $${balance}`;
             wagerInput.value = '';
-            msgEl.innerText=`YOU DIDN'T WIN ANYTHING`
-        // All the same
-        } else if (slot1Val === slot2Val && slot1Val === slot3Val) {
+            msgEl.innerText=`YOU JUST LOST $${wagerAmount}`
+            }, 375)
+        // All 🍎
+        } else if (slot1Val === 1 && slot2Val === 1 && slot3Val === 1) {
+            msgEl.innerText=''
+            winnings = wagerAmount * 2.5;
+            balance = balance + winnings;
+            setTimeout(function() {
+                balanceEl.innerText = `Balance: $${balance}`;
+                wagerInput.value = '';
+                msgEl.innerText=`YOU JUST WON $${winnings}`
+            }, 375)
+        // All 🍌
+        } else if (slot1Val === 2 && slot2Val === 2 && slot3Val === 2) {
+            msgEl.innerText=''
+            winnings = wagerAmount * 0;
+            balance = balance - wagerAmount;
+            setTimeout(function() {
+                balanceEl.innerText = `Balance: $${balance}`;
+                wagerInput.value = '';
+                msgEl.innerText=`YOU JUST LOST $${wagerAmount}`
+            }, 375)
+        // All 🍊
+        } else if (slot1Val === 3 && slot2Val === 3 && slot3Val === 3) {
             msgEl.innerText=''
             winnings = wagerAmount * 2;
             balance = balance + winnings;
-            balanceEl.innerText = `Balance: $${balance}`;
-            wagerInput.value = '';
-            msgEl.innerText=`YOU JUST WON $${winnings - wagerAmount}`
+            setTimeout(function() {
+                balanceEl.innerText = `Balance: $${balance}`;
+                wagerInput.value = '';
+                msgEl.innerText=`YOU JUST WON $${winnings}`
+            }, 375)
         // Two the same
         } else if (slot1Val === slot2Val && slot1Val !== slot3Val) {
             msgEl.innerText=''
             winnings = wagerAmount * 1.5;
             balance = balance + winnings;
-            balanceEl.innerText = `Balance: $${balance}`;
-            wagerInput.value = '';
-            msgEl.innerText=`YOU JUST WON $${winnings - wagerAmount}`
+            setTimeout(function() {
+                balanceEl.innerText = `Balance: $${balance}`;
+                wagerInput.value = '';
+                msgEl.innerText=`YOU JUST WON $${winnings}`
+            }, 375)
         // Two the same
         } else if (slot1Val === slot3Val && slot1Val !== slot2Val) {
             msgEl.innerText=''
             winnings = wagerAmount * 1.5;
             balance = balance + winnings;
-            balanceEl.innerText = `Balance: $${balance}`;
-            wagerInput.value = '';
-            msgEl.innerText=`YOU JUST WON $${winnings - wagerAmount}`
+            setTimeout(function() {
+                balanceEl.innerText = `Balance: $${balance}`;
+                wagerInput.value = '';
+                msgEl.innerText=`YOU JUST WON $${winnings}`
+            }, 375)
         // Two the same
         } else if (slot2Val === slot3Val && slot2Val !== slot1Val) {
-            msgEl.innerText=''
+            msgEl.innerText='';
             winnings = wagerAmount * 1.5;
             balance = balance + winnings;
-            balanceEl.innerText = `Balance: $${balance}`;
-            wagerInput.value = '';
-            msgEl.innerText=`YOU JUST WON $${winnings - wagerAmount}`
+            setTimeout(function() {
+                balanceEl.innerText = `Balance: $${balance}`;
+                wagerInput.value = '';
+                msgEl.innerText=`YOU JUST WON $${winnings}`
+            }, 375)
         // Guard [Return if value is unexpected]
         } else {
             return;
@@ -123,35 +153,41 @@ function handleSpin() {
         
         // Slot icon assignment
         
-        if (slot1Val === 1) {
-            slot1El.src="https://i.ibb.co/9rfhvRy/Apple.png";
-        } else if (slot1Val === 2) {
-            slot1El.src="https://i.ibb.co/56jrGLr/Banana.png";
-        } else if (slot1Val === 3) {
-            slot1El.src="https://i.ibb.co/9W8Whpt/Orange.png";
-        } else {
-            return;
-        }
+        setTimeout(function() {
+            if (slot1Val === 1) {
+                slot1El.src="https://i.ibb.co/9rfhvRy/Apple.png";
+            } else if (slot1Val === 2) {
+                slot1El.src="https://i.ibb.co/56jrGLr/Banana.png";
+            } else if (slot1Val === 3) {
+                slot1El.src="https://i.ibb.co/9W8Whpt/Orange.png";
+            } else {
+                return;
+            }
+        }, 125)
+        
+        setTimeout(function() {
+            if (slot2Val === 1) {
+                slot2El.src="https://i.ibb.co/9rfhvRy/Apple.png";
+            } else if (slot2Val === 2) {
+                slot2El.src="https://i.ibb.co/56jrGLr/Banana.png";
+            } else if (slot2Val === 3) {
+                slot2El.src="https://i.ibb.co/9W8Whpt/Orange.png";
+            } else {
+                return;
+            }
+        }, 250)
 
-        if (slot2Val === 1) {
-            slot2El.src="https://i.ibb.co/9rfhvRy/Apple.png";
-        } else if (slot2Val === 2) {
-            slot2El.src="https://i.ibb.co/56jrGLr/Banana.png";
-        } else if (slot2Val === 3) {
-            slot2El.src="https://i.ibb.co/9W8Whpt/Orange.png";
-        } else {
-            return;
-        }
-
-        if (slot3Val === 1) {
-            slot3El.src="https://i.ibb.co/9rfhvRy/Apple.png";
-        } else if (slot3Val === 2) {
-            slot3El.src="https://i.ibb.co/56jrGLr/Banana.png";
-        } else if (slot3Val === 3) {
-            slot3El.src="https://i.ibb.co/9W8Whpt/Orange.png";
-        } else {
-            return;
-        }
+        setTimeout(function() {
+            if (slot3Val === 1) {
+                slot3El.src="https://i.ibb.co/9rfhvRy/Apple.png";
+            } else if (slot3Val === 2) {
+                slot3El.src="https://i.ibb.co/56jrGLr/Banana.png";
+            } else if (slot3Val === 3) {
+                slot3El.src="https://i.ibb.co/9W8Whpt/Orange.png";
+            } else {
+                return;
+            }
+        }, 375)
     }
 }
 
