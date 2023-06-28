@@ -15,7 +15,7 @@ This game was created using HTML, CSS and JavaScript.
 **Getting Started**
 
 Link:
-https://github.com/Viver2nd/Slot-Machine
+https://viver2nd.github.io/Slot-Machine/
 
 Instructions:
 To play, enter your wager amount and press the golden button to spin.
