@@ -7,7 +7,7 @@
 // Orange = 3
 
 // Game info
-console.log(`Welcome to Kai's Slot-Machine!\n\nTo play, enter your wager amount and press the golden button.\n\nKEY:\n\nZero the same = wager x0.0\nTwo the same = wager x1.5\nThree 🍎 = wager x2.5\nThree 🍌 = wager x0.0\nThree 🍊 = wager x2.0`)
+console.log(`Welcome to Kai's Slot-Machine!\n\nTo play, enter your wager amount and press the golden button.\n\nKEY:\n\n🍎 🍎 or 🍊 🍊 or 🍌 🍌 = wager x1.5\n\n🍎 🍎 🍎 = wager x2.5\n\n🍊 🍊 🍊 = wager x2.0\n\n🍌 🍌 🍌= loss\n\nNone the same = loss`)
   
 // ---------- VARIABLE DECLARATION
 let slot1Val = '';
