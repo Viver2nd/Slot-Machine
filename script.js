@@ -31,24 +31,24 @@ const slot3El = document.getElementById("slot3");
 
 const spinEl = document.getElementById("spinButton");
 
-const balanceEl = document.getElementById('balance')
+const balanceEl = document.getElementById('balance');
 
 // Buttons
 const spinButton = document.getElementById("spinButton");
 
-const doubleButton = document.getElementById("x2")
-const halfButton = document.getElementById("half")
+const doubleButton = document.getElementById("x2");
+const halfButton = document.getElementById("half");
 
-const withdrawButton = document.getElementById("withdraw")
+const withdrawButton = document.getElementById("withdraw");
 
 // Input boxes
-const wagerInput = document.getElementById("wagerInput")
+const wagerInput = document.getElementById("wagerInput");
 
 // Audio
-const moneySoundEl = document.getElementById("moneySound")
+const moneySoundEl = document.getElementById("moneySound");
 
 // Messages
-const msgEl = document.getElementById("msg")
+const msgEl = document.getElementById("msg");
   
 // ---------- EVENT LISTENERS
 spinEl.addEventListener('click', handleSpin);
@@ -73,19 +73,19 @@ function handleSpin() {
     // Guard [Ensures the inputted wager amount is a number, if it isn't the game won't proceed]
     if (isNaN(wagerAmount) || wagerAmount === "" || wagerAmount === "0" || wagerAmount < 0) {
         msgEl.innerText='PLEASE ENTER A NUMBER GREATER THAN ZERO'
-        console.log('Please enter a number greater than zero.')
+        console.log('Please enter a number greater than zero.');
         return;
     } else {
         // Zero the same
         if (slot1Val !== slot2Val && slot1Val !== slot3Val && slot2Val !== slot3Val) {
-            msgEl.innerText=''
+            msgEl.innerText='';
             winnings = wagerAmount * 0;
             balance = balance - wagerAmount;
             setTimeout(function() {
             balanceEl.innerText = `Balance: $${balance}`;
             wagerInput.value = '';
-            msgEl.innerText=`YOU JUST LOST $${wagerAmount}`
-            }, 375)
+            msgEl.innerText=`YOU JUST LOST $${wagerAmount}`;
+            }, 375);
         // All 🍎
         } else if (slot1Val === 1 && slot2Val === 1 && slot3Val === 1) {
             msgEl.innerText=''
@@ -94,8 +94,8 @@ function handleSpin() {
             setTimeout(function() {
                 balanceEl.innerText = `Balance: $${balance}`;
                 wagerInput.value = '';
-                msgEl.innerText=`YOU JUST WON $${winnings}`
-            }, 375)
+                msgEl.innerText=`YOU JUST WON $${winnings}`;
+            }, 375);
         // All 🍌
         } else if (slot1Val === 2 && slot2Val === 2 && slot3Val === 2) {
             msgEl.innerText=''

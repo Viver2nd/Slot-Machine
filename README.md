@@ -10,7 +10,7 @@
 
 **Technologies**
 
-This game was created using HTML, CSS and JavaScript.
+This game was created using HTML, CSS and JavaScript. 
 
 **Getting Started**
 
