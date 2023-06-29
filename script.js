@@ -10,17 +10,22 @@
 console.log(`Welcome to Kai's Slot-Machine!\n\nTo play, enter your wager amount and press the golden button.\n\nKEY:\n\n🍎 🍎 or 🍊 🍊 or 🍌 🍌 = wager x1.5\n\n🍎 🍎 🍎 = wager x2.5\n\n🍊 🍊 🍊 = wager x2.0\n\n🍌 🍌 🍌= loss\n\nNone the same = loss`)
   
 // ---------- VARIABLE DECLARATION
-let slot1Val = '';
-let slot2Val = '';
-let slot3Val = '';
 
-let wagerAmount = '';
+let slot1Val = ''; // Stores the value of slot1 i.e. 'Apple' 'Banana' or 'Orange'
+let slot2Val = ''; // Stores the value of slot2 i.e. 'Apple' 'Banana' or 'Orange'
+let slot3Val = ''; // Stores the value of slot3 i.e. 'Apple' 'Banana' or 'Orange'
 
-let randSlot = Math.floor(Math.random() * 3);
+let wagerAmount = ''; // Will store the amount wagered
+
+let randSlot = Math.floor(Math.random() * 3); // Generates a random value for each slot
 
 let balance = 500; // Change starting balance from this variable
 
-let winnings = 0;
+let winnings = 0; // Will store the amount won from each spin
+
+let withdrawArr = []; // Will store an array containing all previous amounts withdrawn
+
+let largestWithdraw = 0; // Will store the largest withdraw
   
 // ---------- CACHED ELEMENTS
 
@@ -30,9 +35,6 @@ const slot2El = document.getElementById("slot2");
 const slot3El = document.getElementById("slot3");
 
 const spinEl = document.getElementById("spinButton");
-
-const balanceEl = document.getElementById('balance');
-balanceEl.innerText = `Balance: $${balance}`;
 
 // Buttons
 const spinButton = document.getElementById("spinButton");
@@ -52,10 +54,21 @@ const moneySoundEl = document.getElementById("moneySound");
 
 // Messages
 const msgEl = document.getElementById("msg");
-msgEl.style.marginTop = '4vmin'
+msgEl.style.marginTop = '4.5vmin'
 msgEl.innerText = `TO PLAY:\n\nENTER YOUR WAGER AMOUNT AND PRESS THE GOLDEN BUTTON!`
+
+// Balance
+
+const balanceEl = document.getElementById('balance');
+balanceEl.innerText = `Balance: $${balance}`;
+
+// Highest Withdraw
+
+const highestWithdrawEl = document.getElementById("highestWithdraw");
+highestWithdrawEl.innerText = `HIGHSCORE: $${largestWithdraw}`
   
 // ---------- EVENT LISTENERS
+
 spinEl.addEventListener('click', handleSpin);
 
 doubleButton.addEventListener('click', handleDouble);
@@ -67,6 +80,7 @@ withdrawButton.addEventListener('click', handleWithdraw);
 playAgainButton.addEventListener('click', handlePlayAgain);
 
 // ---------- FUNCTIONS
+
 function handleSpin() {
 
     wagerAmount = wagerInput.value;
@@ -75,23 +89,23 @@ function handleSpin() {
     slot2Val = Math.floor(Math.random() * 3 + 1);
     slot3Val = Math.floor(Math.random() * 3 + 1);
 
-    // Slot comparison
+    // SLOT COMPARISON
 
     // Guard [Ensures the inputted wager amount is a number, if it isn't the game won't proceed]
     if (isNaN(wagerAmount) || wagerAmount === "" || wagerAmount === "0" || wagerAmount < 0) {
-        msgEl.style.marginTop = '5vmin'
+        msgEl.style.marginTop = '6vmin'
         msgEl.innerText='PLEASE ENTER A NUMBER GREATER THAN ZERO'
         console.log('Please enter a number greater than zero.');
         return;
     } else {
         // Zero the same
         if (balance < 0 || balance === 0) {
-            msgEl.style.marginTop = '5vmin'
+            msgEl.style.marginTop = '6vmin'
             msgEl.innerText=`YOU'RE OUT OF BALANCE... PRESS '↺' TO PLAY AGAIN`
             console.log(`You're out of balance... press '↺' to play again.`);
             return;
         } else if (wagerAmount > balance) {
-            msgEl.style.marginTop = '5vmin'
+            msgEl.style.marginTop = '6vmin'
             msgEl.innerText=`YOU DON'T HAVE ENOUGH BALANCE TO DO THIS`
             console.log(`You don't have enough balance to do this.`);
             return;
@@ -100,7 +114,7 @@ function handleSpin() {
             winnings = wagerAmount * 0;
             balance = balance - wagerAmount;
             setTimeout(function() {
-            msgEl.style.marginTop = '5vmin'
+            msgEl.style.marginTop = '6vmin'
             balanceEl.innerText = `Balance: $${balance}`;
             wagerInput.value = '';
             msgEl.innerText=`YOU JUST LOST $${wagerAmount}`;
@@ -111,7 +125,7 @@ function handleSpin() {
             winnings = wagerAmount * 2.5;
             balance = balance + winnings;
             setTimeout(function() {
-                msgEl.style.marginTop = '5vmin'
+                msgEl.style.marginTop = '6vmin'
                 balanceEl.innerText = `Balance: $${balance}`;
                 wagerInput.value = '';
                 msgEl.innerText=`YOU JUST WON $${winnings}`;
@@ -122,7 +136,7 @@ function handleSpin() {
             winnings = wagerAmount * 0;
             balance = balance - wagerAmount;
             setTimeout(function() {
-                msgEl.style.marginTop = '5vmin'
+                msgEl.style.marginTop = '6vmin'
                 balanceEl.innerText = `Balance: $${balance}`;
                 wagerInput.value = '';
                 msgEl.innerText=`YOU JUST LOST $${wagerAmount}`
@@ -133,7 +147,7 @@ function handleSpin() {
             winnings = wagerAmount * 2;
             balance = balance + winnings;
             setTimeout(function() {
-                msgEl.style.marginTop = '5vmin'
+                msgEl.style.marginTop = '6vmin'
                 balanceEl.innerText = `Balance: $${balance}`;
                 wagerInput.value = '';
                 msgEl.innerText=`YOU JUST WON $${winnings}`
@@ -144,7 +158,7 @@ function handleSpin() {
             winnings = wagerAmount * 1.5;
             balance = balance + winnings;
             setTimeout(function() {
-                msgEl.style.marginTop = '5vmin'
+                msgEl.style.marginTop = '6vmin'
                 balanceEl.innerText = `Balance: $${balance}`;
                 wagerInput.value = '';
                 msgEl.innerText=`YOU JUST WON $${winnings}`
@@ -155,7 +169,7 @@ function handleSpin() {
             winnings = wagerAmount * 1.5;
             balance = balance + winnings;
             setTimeout(function() {
-                msgEl.style.marginTop = '5vmin'
+                msgEl.style.marginTop = '6vmin'
                 balanceEl.innerText = `Balance: $${balance}`;
                 wagerInput.value = '';
                 msgEl.innerText=`YOU JUST WON $${winnings}`
@@ -166,7 +180,7 @@ function handleSpin() {
             winnings = wagerAmount * 1.5;
             balance = balance + winnings;
             setTimeout(function() {
-                msgEl.style.marginTop = '5vmin'
+                msgEl.style.marginTop = '6vmin'
                 balanceEl.innerText = `Balance: $${balance}`;
                 wagerInput.value = '';
                 msgEl.innerText=`YOU JUST WON $${winnings}`
@@ -176,7 +190,7 @@ function handleSpin() {
             return;
         }
         
-        // Slot icon assignment
+        // SLOT ICON ASSIGNMENT
         
         setTimeout(function() {
             if (slot1Val === 1) {
@@ -216,12 +230,12 @@ function handleSpin() {
     }
 }
 
-// Double function
+// x2 WAGER
 
 function handleDouble() {
     wagerAmount = wagerInput.value;
     if (isNaN(wagerAmount) || wagerAmount === "" || wagerAmount === "0" || wagerAmount < 0) {
-        msgEl.style.marginTop = '5vmin'
+        msgEl.style.marginTop = '6vmin'
         msgEl.innerText='PLEASE ENTER A NUMBER GREATER THAN ZERO'
         console.log('Please enter a number greater than zero.')
         return;
@@ -231,12 +245,12 @@ function handleDouble() {
     }
 }
 
-// Half function
+// 1/2 WAGER
 
 function handleHalf() {
     wagerAmount = wagerInput.value;
     if (isNaN(wagerAmount) || wagerAmount === "" || wagerAmount === "0" || wagerAmount < 0) {
-        msgEl.style.marginTop = '5vmin'
+        msgEl.style.marginTop = '6vmin'
         msgEl.innerText='PLEASE ENTER A NUMBER GREATER THAN ZERO'
         console.log('Please enter a number greater than zero.')
         return;
@@ -246,17 +260,31 @@ function handleHalf() {
     }
 }
 
-// Withdraw function
+// CALCULATE HIGHEST AMOUNT WITHDRAWN
+
+function highestWithdraw() {
+    for (i = 0; i < withdrawArr.length; i++) {
+        if (withdrawArr[i] > largestWithdraw) {
+            largestWithdraw = withdrawArr[i]
+        }
+    }
+    return largestWithdraw
+}
+
+// WITHDRAW FUNCTION
 
 function handleWithdraw() {
     // Guard [Ensures you can't withdraw if your balance is equal to or less than 0]
     if (balance === 0 || balance < 0) {
-        msgEl.style.marginTop = '5vmin'
+        msgEl.style.marginTop = '6vmin'
         msgEl.innerText='YOU HAVE INSUFFICIENT FUNDS'
         console.log(`You have insufficient funds.`)
     } else {
+        withdrawArr.push(balance)
+        highestWithdraw()
+        highestWithdrawEl.innerText = `HIGHSCORE: $${largestWithdraw}`
         moneySoundEl.play()
-        msgEl.style.marginTop = '5vmin'
+        msgEl.style.marginTop = '6vmin'
         msgEl.innerText=`YOU JUST WITHDREW $${balance}`
         console.log(`You just withdrew $${balance}`)
         balance = 0;
@@ -264,21 +292,15 @@ function handleWithdraw() {
     }
 }
 
+// PLAY AGAIN FUNCTION
+
 function handlePlayAgain() {
     balance = 500;
     balanceEl.innerText = `Balance: $${balance}`;
-    msgEl.style.marginTop = '4vmin'
+    msgEl.style.marginTop = '4.5vmin'
     msgEl.innerText = `TO PLAY:\n\nENTER YOUR WAGER AMOUNT AND PRESS THE GOLDEN BUTTON!`
     slot1El.src ="https://i.ibb.co/8gk4Ft7/Untitled.png"
     slot2El.src ="https://i.ibb.co/8gk4Ft7/Untitled.png"
     slot3El.src ="https://i.ibb.co/8gk4Ft7/Untitled.png"
     wagerInput.value = ''
 }
-
-// make user start with $500 balance - when balance reaches zero ask user to refresh page
-
-// make it harder to win
-
-// make wager amount stay
-
-// store all withdraws and compile a list of highest ones

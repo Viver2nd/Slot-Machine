@@ -2,11 +2,11 @@
 
 **Screenshots**
 
-![Alt text](images/image.png)
+![Alt text](images/Screenshot-1.png)
 
-![Alt text](images/image-1.png)
+![Alt text](images/Screenshot-2.png)
 
-![Alt text](images/image-2.png)
+![Alt text](images/Screenshot-3.png)
 
 **Technologies**
 
