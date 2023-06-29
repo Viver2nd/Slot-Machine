@@ -7,7 +7,7 @@
 // Orange = 3
 
 // Game info
-console.log(`Welcome to Kai's Slot-Machine!\n\nTo play, enter your wager amount and press the golden button.\n\nKEY:\n\n🍎 🍎 or 🍊 🍊 or 🍌 🍌 = wager x1.5\n\n🍎 🍎 🍎 = wager x2.5\n\n🍊 🍊 🍊 = wager x2.0\n\n🍌 🍌 🍌= loss\n\nNone the same = loss`)
+console.log(`Welcome to Kai's Slot-Machine!\n\nTo play, enter your wager amount and press the golden button.\n\nKEY:\n\n🍎 🍎 or 🍊 🍊 = wager x1.5\n\n🍌 🍌 = loss\n\n🍎 🍎 🍎 = wager x2.5\n\n🍊 🍊 🍊 = wager x2.0\n\n🍌 🍌 🍌= loss\n\nNone the same = loss`)
   
 // ---------- VARIABLE DECLARATION
 
@@ -62,7 +62,7 @@ msgEl.innerText = `TO PLAY:\n\nENTER YOUR WAGER AMOUNT AND PRESS THE GOLDEN BUTT
 const balanceEl = document.getElementById('balance');
 balanceEl.innerText = `Balance: $${balance}`;
 
-// Highest Withdraw
+// Highscore
 
 const highestWithdrawEl = document.getElementById("highestWithdraw");
 highestWithdrawEl.innerText = `HIGHSCORE: $${largestWithdraw}`
@@ -91,24 +91,26 @@ function handleSpin() {
 
     // SLOT COMPARISON
 
-    // Guard [Ensures the inputted wager amount is a number, if it isn't the game won't proceed]
+    // Guard [Ensures the inputted wager amount is in the correct format, if it isn't it will prompt the user to input a number greater than zero]
     if (isNaN(wagerAmount) || wagerAmount === "" || wagerAmount === "0" || wagerAmount < 0) {
         msgEl.style.marginTop = '6vmin'
         msgEl.innerText='PLEASE ENTER A NUMBER GREATER THAN ZERO'
         console.log('Please enter a number greater than zero.');
         return;
     } else {
-        // Zero the same
+        // Guard [Ensures your balance is above zero, if it isn't it will tell the user to press '↺' to continue playing]
         if (balance < 0 || balance === 0) {
             msgEl.style.marginTop = '6vmin'
             msgEl.innerText=`YOU'RE OUT OF BALANCE... PRESS '↺' TO PLAY AGAIN`
             console.log(`You're out of balance... press '↺' to play again.`);
             return;
+        // Guard [Ensures the user's balance can support the wager amount, if it can't it will prompt the user to lower their wager amount]
         } else if (wagerAmount > balance) {
             msgEl.style.marginTop = '6vmin'
             msgEl.innerText=`YOU DON'T HAVE ENOUGH BALANCE TO DO THIS`
             console.log(`You don't have enough balance to do this.`);
             return;
+        // None the same
         } else if (slot1Val !== slot2Val && slot1Val !== slot3Val && slot2Val !== slot3Val) {
             msgEl.innerText='';
             winnings = wagerAmount * 0;
@@ -152,7 +154,18 @@ function handleSpin() {
                 wagerInput.value = '';
                 msgEl.innerText=`YOU JUST WON $${winnings}`
             }, 375)
-        // Two the same
+        // Two 🍌
+        } else if (slot1Val === 2 && slot2Val === 2 || slot1Val === 2 && slot3Val === 2 || slot2Val === 2 && slot3Val === 2) {
+            msgEl.innerText=''
+            winnings = wagerAmount * 0;
+            balance = balance - wagerAmount;
+            setTimeout(function() {
+                msgEl.style.marginTop = '6vmin'
+                balanceEl.innerText = `Balance: $${balance}`;
+                wagerInput.value = '';
+                msgEl.innerText=`YOU JUST LOST $${wagerAmount}`
+            }, 375)
+        // Two 🍎 or 🍊
         } else if (slot1Val === slot2Val && slot1Val !== slot3Val) {
             msgEl.innerText=''
             winnings = wagerAmount * 1.5;
@@ -163,7 +176,7 @@ function handleSpin() {
                 wagerInput.value = '';
                 msgEl.innerText=`YOU JUST WON $${winnings}`
             }, 375)
-        // Two the same
+        //  Two 🍎 or 🍊
         } else if (slot1Val === slot3Val && slot1Val !== slot2Val) {
             msgEl.innerText=''
             winnings = wagerAmount * 1.5;
@@ -174,7 +187,7 @@ function handleSpin() {
                 wagerInput.value = '';
                 msgEl.innerText=`YOU JUST WON $${winnings}`
             }, 375)
-        // Two the same
+        //  Two 🍎 or 🍊
         } else if (slot2Val === slot3Val && slot2Val !== slot1Val) {
             msgEl.innerText='';
             winnings = wagerAmount * 1.5;
