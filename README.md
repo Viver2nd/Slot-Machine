@@ -31,11 +31,11 @@ To play, enter your wager amount and press the golden button to spin.
 ****
 **Wireframe**
 
-![Alt text](<Slot Machine Wireframe.png>)
+![Alt text](images/Wireframe.png)
 
 **Pseudocode**
 
-![Alt text](image.png)
+![Alt text](images/Pseudocode.png)
 
 ## Bugs & Issues
 ****
